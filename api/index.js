@@ -4,13 +4,23 @@ export const getPlacesData = async (
   bl_latitude,
   tr_latitude,
   bl_longitude,
-  tr_longitude
+  tr_longitude,
+  type,
+  limit
 ) => {
+  console.log(
+    bl_latitude,
+    tr_latitude,
+    bl_longitude,
+    tr_longitude,
+    type,
+    limit
+  );
   try {
     const {
       data: { data },
     } = await axios.get(
-      `https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary`,
+      `https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`,
       {
         params: {
           bl_latitude,
@@ -18,7 +28,7 @@ export const getPlacesData = async (
           bl_longitude,
           tr_longitude,
           restaurant_tagcategory_standalone: "10591",
-          limit: "30",
+          limit,
           currency: "VND",
           lunit: "km",
           lang: "en_US",
@@ -30,6 +40,7 @@ export const getPlacesData = async (
         },
       }
     );
+    console.log(data);
     return data;
   } catch (err) {
     return null;

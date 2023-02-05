@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  Image,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
-import React, { useLayoutEffect } from "react";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
 
 import { useNavigation } from "@react-navigation/native";
@@ -29,7 +23,7 @@ const HomeScreen = () => {
         <Text className="text-[#2a2b4b] text-3xl font-semibold">Travel</Text>
       </View>
       {/* seccon session */}
-      <View className="flex gap-2 mt-5 px-6">
+      <View className="flex gap-2 mt-5 px-6 z-10">
         <Text className="text-4xl">Enjoy the trip with</Text>
         <Text className="font-semibold text-3xl text-[#4dabb7]">
           Good Momments
@@ -40,7 +34,7 @@ const HomeScreen = () => {
         </Text>
       </View>
       {/* circle session */}
-      <View className="w-[400px] h-[400px] bg-[#4dabb7] rounded-full absolute bottom-36 -right-36"></View>
+      <View className="w-[400px] h-[400px] bg-[#b1c927] rounded-full absolute bottom-36 -right-36"></View>
       <View className="w-[400px] h-[400px] bg-[#e99265] rounded-full absolute -bottom-28 -left-36"></View>
 
       {/* image container */}
@@ -52,7 +46,7 @@ const HomeScreen = () => {
           className="w-full h-full object-cover mt-20"
         />
         <TouchableOpacity
-          onPress={() => navigation.navigate("Discover")}
+          onPress={() => navigation.navigate("DiscoverScreen")}
           className="absolute bottom-20 w-24 h-24 border-l-2 border-t-4 
         border-[#00BCC9] rounded-full items-center justify-center"
         >

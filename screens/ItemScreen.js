@@ -6,12 +6,15 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AuthContext } from "../hook/auth";
+
 const ItemScreen = ({ route }) => {
+  const { sttate } = useContext(AuthContext);
   const navigation = useNavigation();
   const data = route?.params?.param;
   useLayoutEffect(() => {
@@ -20,8 +23,27 @@ const ItemScreen = ({ route }) => {
     });
   }, []);
 
+  const handleBooking = () => {
+    if (state.userToken) {
+      navigation.navigate("PaymentScreen", { data });
+    } else {
+      navigation.navigate("Login", { back: "ItemScreen", data });
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white relative">
+      <View className="absolute flex-row inset-x-0 top-7 h-max z-10 justify-between px-6">
+        <TouchableOpacity
+          onPress={() => navigation.navigate(route.params.back)}
+          className="w-10 h-10 rounded-md items-center justify-center bg-white"
+        >
+          <Entypo name="chevron-left" size={24} color="#06b2bb" />
+        </TouchableOpacity>
+        <TouchableOpacity className="w-10 h-10 rounded-md items-center justify-center bg-[#06b2bb]">
+          <FontAwesome5 name="heartbeat" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
       <ScrollView className="flex-1 px-4 py-6">
         <View className="relative bg-white shadow-lg">
           <Image
@@ -32,18 +54,6 @@ const ItemScreen = ({ route }) => {
             }}
             className="w-full h-72 object-cover rounded-2xl"
           />
-
-          <View className="absolute flex-row inset-x-0 top-5 justify-between px-6">
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Discover")}
-              className="w-10 h-10 rounded-md items-center justify-center bg-white"
-            >
-              <Entypo name="chevron-left" size={24} color="#06b2bb" />
-            </TouchableOpacity>
-            <TouchableOpacity className="w-10 h-10 rounded-md items-center justify-center bg-[#06b2bb]">
-              <FontAwesome5 name="heartbeat" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
 
           <View className="absolute flex-row inset-x-0 bottom-5 justify-between px-6">
             <View className="flex-row space-x-2 items-center">
@@ -63,7 +73,7 @@ const ItemScreen = ({ route }) => {
               }`}
             >
               <Text className="font-bold text-white">
-                {data?.open_now_text ?? "Closed"}
+                {data?.open_now_text ?? "Closed Now"}
               </Text>
             </View>
           </View>
@@ -158,11 +168,14 @@ const ItemScreen = ({ route }) => {
             </View>
           )}
 
-          <View className="mt-4 px-4 py-4 rounded-lg bg-[#06b2be] items-center justify-center mb-12">
+          <TouchableOpacity
+            onPress={handleBooking}
+            className="mt-4 px-4 py-4 rounded-lg bg-[#06b2be] items-center justify-center mb-12"
+          >
             <Text className="text-3xl font-semibold uppercase tracking-wider text-gray-100">
               Book now
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
