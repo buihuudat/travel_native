@@ -67,7 +67,6 @@ const Discover = () => {
     });
   };
 
-  console.log(state);
   const handleLoggin = () => {
     state.data
       ? navigation.navigate("UserProfile")
@@ -98,6 +97,7 @@ const Discover = () => {
           placeholder="Search"
           fetchDetails={true}
           onPress={(data, details = null) => {
+            console.log(data);
             // 'details' is provided when fetchDetails = true
             setTr_latitude(details?.geometry?.viewport?.northeast.lat);
             setTr_longitude(details?.geometry?.viewport?.northeast.lng);

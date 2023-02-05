@@ -8,14 +8,6 @@ export const getPlacesData = async (
   type,
   limit
 ) => {
-  console.log(
-    bl_latitude,
-    tr_latitude,
-    bl_longitude,
-    tr_longitude,
-    type,
-    limit
-  );
   try {
     const {
       data: { data },
@@ -35,12 +27,11 @@ export const getPlacesData = async (
         },
         headers: {
           "X-RapidAPI-Key":
-            "94eeff1d89msh536c0927c271004p1eb399jsnd472fe363360",
+            "7daaf21ecemsh7a9a602e1c0f6a2p19053djsne133a4eae1cb",
           "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
         },
       }
     );
-    console.log(data);
     return data;
   } catch (err) {
     return null;
